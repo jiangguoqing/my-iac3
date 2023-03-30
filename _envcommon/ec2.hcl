@@ -21,6 +21,6 @@ locals {
 inputs = {
   ec2_ami = "ami-0a72af05d27b49ccb"
   ec2_type = "t2.micro"
-  ec2_tag = "test"
+  ec2_tag = "test1"
 
 }
