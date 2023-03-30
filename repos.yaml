@@ -1,7 +1,7 @@
 repos:
   - id: /.*/
-    allowed_overrides: [workflow]
-    allow_custom_workflows: true
+#    allowed_overrides: [workflow]
+#    allow_custom_workflows: true
     pre_workflow_hooks:
       - run: "terragrunt-atlantis-config generate --output atlantis.yaml --autoplan --parallel --create-workspace"
 
