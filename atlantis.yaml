@@ -7,5 +7,4 @@ projects:
   autoplan:
     enabled: true  
 ###- dir: ./non-prod/sgp-southeast-1/dev/eks/
-
  
