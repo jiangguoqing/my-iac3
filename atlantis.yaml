@@ -6,6 +6,6 @@ projects:
   workflow: terragrunt
   autoplan:
     enabled: true  
-#- dir: ./non-prod/sgp-southeast-1/dev/eks/
+##- dir: ./non-prod/sgp-southeast-1/dev/eks/
 
  
