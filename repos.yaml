@@ -1,0 +1,69 @@
+repos:
+  - id: /.*/
+    allowed_overrides: [workflow]
+    allow_custom_workflows: true
+  workflow: terragrunt
+    pre_workflow_hooks:
+      - run: "terragrunt-atlantis-config generate --output atlantis.yaml --autoplan --parallel --create-workspace"
+
+workflows:
+
+  terragrunt:
+    plan:
+      steps:
+      - env:
+          name: TERRAGRUNT_TFPATH
+          command: 'echo "terraform${ATLANTIS_TERRAFORM_VERSION}"'
+      - run: terragrunt plan -input=false -out=$PLANFILE
+      - run: terragrunt show -json $PLANFILE > $SHOWFILE
+    apply:
+      steps:
+      - env:
+          name: TERRAGRUNT_TFPATH
+          command: 'echo "terraform${ATLANTIS_TERRAFORM_VERSION}"'
+      - run: terragrunt apply -input=false $PLANFILE
+
+
+
+  poc:
+    plan:
+      steps:
+      - env:
+          name: TF_WORKSPACE
+          command: echo $WORKSPACE
+      - init
+      - plan:
+          extra_args: ["-var-file=tfvars/$WORKSPACE.tfvars"]
+
+    apply:
+      steps:
+      - env:
+          name: TF_WORKSPACE
+          command: echo $WORKSPACE
+      - apply
+  
+#  terragrunt:
+#    init:
+#      steps:
+#      - env:
+#          name: TF_WORKSPACE
+#          command: echo $WORKSPACE
+#      - run: terragrunt init 
+#
+#    plan:
+#      steps:
+#      - env:
+#          name: TF_WORKSPACE
+#          command: echo $WORKSPACE
+#      - run: terraform init -input=false -no-color
+#      - run: terragrunt plan -input=false -no-color
+#
+#    apply:
+#      steps:
+#      #- env:
+#      #    name: TF_WORKSPACE
+#      #    command: echo $WORKSPACE
+#      - run: terragrunt apply -input=false  -auto-approve -no-color
+
+
+      
