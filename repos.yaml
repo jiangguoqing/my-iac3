@@ -34,9 +34,9 @@ workflows:
 
     plan:
       steps:
-      - env:
-          name: TF_WORKSPACE
-          command: echo $WORKSPACE
+#      - env:
+#          name: TF_WORKSPACE
+#          command: echo $WORKSPACE
       - run: terraform init -input=false -no-color
       - run: terragrunt plan -input=false -no-color
 
